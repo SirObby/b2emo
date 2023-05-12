@@ -4,11 +4,13 @@
 int main()
 {
     
+    std::cout << "begin read";
     json configdocument;
     std::ifstream configfile("./config.json");
     configfile >> configdocument;
     configfile.close();
 
+    std::cout << "set token";
     dpp::cluster bot(configdocument["token"], dpp::i_default_intents |  dpp::i_message_content, 1);
 
 
@@ -26,11 +28,12 @@ int main()
 	            */
 	            event.reply(std::string("Blep! You chose") + animal);
 	        } });
-
     bot.on_ready([&bot](const dpp::ready_t &event)
                  {
+                    std::cout << "onready";
 	        if (dpp::run_once<struct register_bot_commands>()) {
-	 
+                std::cout << "register";
+
 	            /* Create a new global command on ready event */
 	            dpp::slashcommand newcommand("blep", "Send a random adorable animal photo", bot.me.id);
 	            newcommand.add_option(
@@ -44,6 +47,11 @@ int main()
 	 
 	            /* Register the command */
 	            bot.global_command_create(newcommand);
+
+                dpp::slashcommand infocommand("info", "Get bot info", bot.me.id);
+	 
+	            /* Register the command */
+	            bot.global_command_create(infocommand);
 	        } });
 
     std::cout << "start";

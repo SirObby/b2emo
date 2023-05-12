@@ -3,3 +3,4 @@ build
 libs/DPP/
 bot.exe
 bot
+*.dll
