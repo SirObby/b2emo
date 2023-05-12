@@ -46,6 +46,8 @@ int main()
 	            bot.global_command_create(newcommand);
 	        } });
 
+    std::cout << "start";
+
     bot.start(dpp::st_wait);
 
     return 0;
